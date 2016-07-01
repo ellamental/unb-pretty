@@ -1,0 +1,134 @@
+// Stylus Media Queries
+// ====================
+//
+// A library of utilities for working with media queries.
+//
+// Copyright (c) 2015 Nick Zarczynski <nick@unb.services>
+// License: MIT
+// Version: 0.0.1
+//
+
+
+// Sizes
+// =====
+//
+// Size is defined by the screen's *minimum* width.
+
+$screen = {
+  xs: 0,       // Extra small screen / phone
+  sm: 544px,   // Small screen / phone
+  md: 768px,   // Medium screen / tablet
+  lg: 992px,   // Large screen / desktop
+  xl: 1200px,  // Extra large screen / wide desktop
+
+  xs-min: 0,
+  xs-max: 543px,
+
+  sm-min: 544px,
+  sm-max: 767px,
+
+  md-min: 768px,
+  md-max: 991px,
+
+  lg-min: 992px,
+  lg-max: 1199px,
+
+  xl-min: 1200px,
+  xl-max: 20000px,
+}
+
+
+// Screen
+// ======
+//
+// Functions to make writing queries easy.
+//
+// Example
+// -------
+//
+//     .foo {
+//         color: blue;
+//
+//         // All screens from medium to extra large, inclusive ($screen.md, $screen.lg, $screen.xl)
+//         +screen-in($screen.md, $screen.xl) {
+//             color: red;
+//         }
+//
+//         // Only small screens ($screen.sm)
+//         +screen($screen.sm) {
+//             color: purple;
+//         }
+//
+//         // All screen sizes less than small (only $screen.xs in this case)
+//         +screen-lt($screen.sm) {
+//             color: white;
+//         }
+//     }
+
+screen(size)
+    if size == $screen.xs
+        maxWidth = $screen.xs-max
+    if size == $screen.sm
+        maxWidth = $screen.sm-max
+    if size == $screen.md
+        maxWidth = $screen.md-max
+    if size == $screen.lg
+        maxWidth = $screen.lg-max
+    if size == $screen.xl
+        maxWidth = $screen.xl-max
+
+    @media screen and (min-width: size) and (max-width: maxWidth)
+        {block}
+
+screen-lt(size)
+    @media screen and (max-width: size)
+        {block}
+
+screen-lte(size)
+    if size == $screen.xs
+        width = $screen.xs-max
+    if size == $screen.sm
+        width = $screen.sm-max
+    if size == $screen.md
+        width = $screen.md-max
+    if size == $screen.lg
+        width = $screen.lg-max
+    if size == $screen.xl
+        width = $screen.xl-max
+
+    @media screen and (max-width: width)
+        {block}
+
+
+screen-gt(size)
+    if size == $screen.xs
+        width = $screen.xs-max
+    if size == $screen.sm
+        width = $screen.sm-max
+    if size == $screen.md
+        width = $screen.md-max
+    if size == $screen.lg
+        width = $screen.lg-max
+    if size == $screen.xl
+        width = $screen.xl-max
+
+    @media screen and (min-width: width + 1)
+        {block}
+
+screen-gte(size)
+    @media screen and (min-width: size)
+        {block}
+
+screen-in(minSize maxSize)
+    if maxSize == $screen.xs
+        maxWidth = $screen.xs-max
+    if maxSize == $screen.sm
+        maxWidth = $screen.sm-max
+    if maxSize == $screen.md
+        maxWidth = $screen.md-max
+    if maxSize == $screen.lg
+        maxWidth = $screen.lg-max
+    if maxSize == $screen.xl
+        maxWidth = $screen.xl-max
+    @media screen and (min-width: minSize) and (max-width: maxWidth)
+        {block}

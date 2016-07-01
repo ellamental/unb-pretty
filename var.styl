@@ -1,0 +1,243 @@
+/*
+##########
+Variables
+##########
+
+Default variables.
+
+..NOTE:: A file named ``var.styl`` at the project root is imported at the end
+         of this file.  This provides an opportunity for the user to override
+         any of the default variables here.
+
+         Due to the hacky nature of this implementation, currently the best
+         practice is to copy/paste this whole file and make changes as
+         necessary.
+
+TODO(nick): Come up with a less hacky way to do variable overrides.
+
+            An example of the problem is the user overriding
+            ``$color-primary``.  Since ``color-primary`` is used in other
+            variable assignments, it needs to be overridden before its use.
+            So simply importing the ``var`` file at the end will cause the
+            original/default ``color-primary`` to be used (ex. in all the font
+            colors).
+
+            We can't just import the ``var-overrides`` file over-and-over
+            though, because some variables are defined as nested hashes.  For
+            example, if we try to import ``var-overrides`` immediately after
+            defining the ``color-*`` variables, and a user tries to override
+            ``$color.font.light.text`` an error will be thrown, because that
+            hash structure doesn't exist yet.  But if we don't import the
+            overrides, the user will not be able to override the default
+            ``color-primary`` in any default variables defined afterward.
+
+*/
+
+// Colors
+// =======
+
+$color-light-base ?= #fff
+$color-dark-base ?= #000
+
+$color-primary ?= 'Indigo'
+$color-accent ?= 'Deep Orange'
+$color-grey ?= 'Grey'
+// $color-grey = 'Blue Grey'
+
+
+$color = {
+    _:_,
+
+    primary-lightest: palette($color-primary, '50'),
+    primary-light: palette($color-primary, '200'),
+    primary: palette($color-primary, '500'),
+    primary-dark: palette($color-primary, '700'),
+    primary-darkest: palette($color-primary, '900'),
+
+    accent-lightest: palette($color-accent, '50'),
+    accent-light: palette($color-accent, '200'),
+    accent: palette($color-accent, '500'),
+    accent-dark: palette($color-accent, '700'),
+    accent-darkest: palette($color-accent, '900'),
+
+    grey-lightest: palette($color-grey, '50'),
+    grey-light: palette($color-grey, '200'),
+    grey: palette($color-grey, '500'),
+    grey-dark: palette($color-grey, '700'),
+    grey-darkest: palette($color-grey, '900'),
+
+    font: {
+        light: {
+            base: palette('White', '500'),
+            text: palette('White', 'Text'),
+            secondary: palette('White', 'Secondary Text'),
+            icon: palette('White', 'Icons'),
+            disabled: palette('White', 'Disabled'),
+            hint: palette('White', 'Hint Text'),
+            divider: palette('White', 'Dividers'),
+        },
+
+        dark: {
+            base: palette('Black', '500'),
+            text: palette('Black', 'Text'),
+            secondary: palette('Black', 'Secondary Text'),
+            icon: palette('Black', 'Icons'),
+            disabled: palette('Black', 'Disabled'),
+            hint: palette('Black', 'Hint Text'),
+            divider: palette('Black', 'Dividers'),
+        },
+    },
+};
+
+
+
+// Fonts
+// ======
+
+_font_defaults = {
+    _:_,
+
+    family: 'Roboto'\, 'Noto'\, sans-serif,
+
+    // UNB Pretty specifies font sizes in the CSS standard ``rem`` unit.
+    // Google's Material Design uses ``sp`` (scalable pixels) which are
+    // platform dependent (Android).  The comments below show the conversion
+    // from ``sp`` to ``rem`` based on a 16px default font size.
+    //
+    size: {
+        xs: 0.750rem,      // 12px
+        sm: 0.875rem,      // 14px
+        md: 1.000rem,      // 16px
+        lg: 1.250rem,      // 20px
+        xl: 1.500rem,      // 24px
+        xxl: 2.125rem,     // 34px
+        xxxl: 2.813rem,    // 45px
+        xxxxl: 3.500rem,   // 56px
+        xxxxxl: 7.000rem,  // 112px
+    },
+
+    weight: {
+        light: 300,
+        regular: 400,
+        medium: 500,
+    },
+}
+
+
+$font = {
+    _:_,
+
+    primary: {
+        family: 'Roboto'\, 'Noto'\, sans-serif,
+        size: _font_defaults.size,
+        weight: _font_defaults.weight,
+    },
+
+    accent: {
+        family: 'Kalam'\, cursive,
+        size: _font_defaults.size,
+        weight: {
+            light: 300,
+            regular: 300,
+            medium: 400,
+        },
+    },
+
+    // style: { see $font['style'] below }
+}
+
+
+$font['style'] = {
+    display4: {
+        family: $font.primary.family,
+        size: _font_defaults.size.xxxxxl,
+        height: 8.000rem,
+        weight: $font.primary.weight.light,
+        spacing: -0.010rem,
+    },
+
+    display3: {
+        family: $font.primary.family,
+        size: _font_defaults.size.xxxxl,
+        height: 4.000rem,
+        weight: $font.primary.weight.regular,
+        spacing: -0.005rem,
+    },
+
+    display2: {
+        family: $font.primary.family,
+        size: _font_defaults.size.xxxl,
+        height: 4.000rem,
+        weight: $font.primary.weight.regular,
+    },
+
+    display1: {
+        family: $font.primary.family,
+        size: _font_defaults.size.xxl,
+        height: 3.250rem,
+        weight: $font.primary.weight.regular,
+    },
+
+    headline: {
+        family: $font.primary.family,
+        size: _font_defaults.size.xl,
+        height: 2.750rem,
+        weight: $font.primary.weight.regular,
+    },
+
+    title: {
+        family: $font.primary.family,
+        size: _font_defaults.size.lg,
+        height: 2.750rem,
+        weight: $font.primary.weight.medium,
+        spacing: 0.005em,
+    },
+
+    subheading: {
+        family: $font.primary.family,
+        size: _font_defaults.size.md,
+        height: 2.000rem,
+        weight: $font.primary.weight.regular,
+        spacing: 0.010rem,
+    },
+
+    body2: {
+        family: $font.primary.family,
+        size: _font_defaults.size.sm,
+        height: 1.563rem,
+        weight: $font.primary.weight.medium,
+        spacing: 0.010rem,
+    },
+
+    body: {
+        family: $font.primary.family,
+        size: _font_defaults.size.sm,
+        height: 1.563rem,
+        weight: $font.primary.weight.regular,
+        spacing: 0.010rem,
+    },
+
+    caption: {
+        family: $font.primary.family,
+        size: _font_defaults.size.xs,
+        height: 2.000rem,
+        weight: $font.primary.weight.regular,
+        spacing: 0.020rem,
+    },
+
+    button: {
+        family: $font.primary.family,
+        size: _font_defaults.size.sm,
+        height: 2.000rem,
+        weight: $font.primary.weight.medium,
+        transform: uppercase,
+        spacing: 0.010rem,
+    },
+}
+
+
+
+// Import User Overrides
+// ======================
+
+@require "var-overrides"
