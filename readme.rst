@@ -2,7 +2,8 @@
 UNB Pretty
 ##########
 
-UNB Pretty is a CSS/Stylus library...
+A generalized library of CSS/Stylus classes and functions designed to serve as
+a foundation/starting point for individual projects.
 
 
 Installation
@@ -118,6 +119,15 @@ email to nick@frez.me.
 
 If you are a security researcher and/or believe you have found a security
 vulnerability in this software, please contact us by email at nick@frez.me.
+
+
+
+Origins
+=======
+
+UNB Pretty is an extension of Google's `Material Design style guide
+<https://www.google.com/design/spec/material-design/introduction.html>`_.
+
 
 
 Copyright and License Information
