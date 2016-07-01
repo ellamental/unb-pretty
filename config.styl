@@ -1,0 +1,360 @@
+/*
+###########################
+UNB Pretty Default Settings
+###########################
+
+The default settings for UNB Pretty styles and components.
+
+
+
+
+Structure
+=========
+
+To allow for easier user overrides, this module uses a slightly obfuscated
+variable definition method.  This is a simple overview of the variable
+hierarchy that is ultimately defined.
+
+.. code:: stylus
+
+    $color = {
+      primary*: primary color and variants
+      accent*: accent color and variants
+      grey*: grey color and variants
+      font: {
+        dark: { dark font colors }
+        light: { light font colors }
+      }
+    }
+
+    $font = {
+      primary: {
+        family: font family for primary font
+        size: { sizes for primary font (sm, md, lg, xl, x..l) }
+        weight: { weights for primary font (light, regular, medium) }
+      }
+      accent: {
+        family: font family for accent font
+        size: { sizes for accent font (sm, md, lg, xl, x..l) }
+        weight: { weights for accent font (light, regular, medium) }
+      }
+      style: {
+        style-name: {
+          family: font family for style
+          size: $font.{primary|accent}.size
+          height: rem
+          weight: $font.{primary|accent}.weight
+        }
+        ...
+      }
+    }
+
+
+How to Override Settings
+========================
+
+.. WARNING:: You **must** ``@require '~unb-pretty/var'`` before you
+             ``@require '~unb-pretty/main'``!  Stylus' ``@require`` mechanism
+             is idempotent and will skip importing the ``unb-pretty/var``
+             module if it has already been imported.
+
+
+
+The default variables are overridable either before or after their import.
+Depending on your goals, you may wish to do either or both.
+
+Some of the variables used here are used to set other variables.  For example,
+the ``$color-primary`` variable is used to set ``$color.primary*``.  Overriding
+``$color-primary`` before requiring ``~unb-pretty/var`` will result in
+``$color.primary*`` being set to the desired values.  However, overriding
+``$color-primary`` after requiring ``~unb-pretty/var`` will have no effect on
+``$color.primary*``.
+
+.. code:: stylus
+
+    // myvars.styl
+
+    // Good
+    // ====
+
+    $color-primary = 'Blue'
+
+    @require '~unb-pretty/var'
+
+    // $color.primary == pallet('Blue', 500)
+
+
+    // Bad
+    // ===
+
+    @require '~unb-pretty/var'
+
+    $color-primary = 'Blue'
+
+    // $color.primary = pallet('Indigo', 500)  // Indigo is the default
+
+
+Overriding variables after requiring ``~unb-pretty/var`` may also be useful.
+
+    // myvars.styl
+
+    $color-primary = 'Blue'
+
+    @require '~unb-pretty/var'
+
+    $color.primary = darken($color.primary, 10)
+
+
+Overriding nested variables
+---------------------------
+
+To override a variable defined within a hash, you need only to recreate the
+hash structure in your override.
+
+.. code:: stylus
+
+    // myvars.styl
+
+    $font = {
+        style: {
+            body: {
+                height: 1.2rem,
+            }
+        }
+    }
+
+    @require '~unb-pretty/var'
+
+
+*/
+
+// Colors
+// =======
+
+$color-light-base ?= #fff
+$color-dark-base ?= #000
+
+$color-primary ?= 'Indigo'
+$color-accent ?= 'Deep Orange'
+$color-grey ?= 'Grey'
+// $color-grey ?= 'Blue Grey'
+
+
+_override--color = $color || {}
+_override--color--font = _override--color['font'] || {}
+_override--color--font--dark = _override--color--font['dark'] || {}
+_override--color--font--light = _override--color--font['light'] || {}
+
+_default--color--font--dark = {
+    base: palette('Black', '500'),
+    text: palette('Black', 'Text'),
+    secondary: palette('Black', 'Secondary Text'),
+    icon: palette('Black', 'Icons'),
+    disabled: palette('Black', 'Disabled')
+    hint: palette('Black', 'Hint Text'),
+    divider: palette('Black', 'Dividers'),
+}
+
+_default--color--font--light = {
+    base: palette('White', '500'),
+    text: palette('White', 'Text'),
+    secondary: palette('White', 'Secondary Text'),
+    icon: palette('White', 'Icons'),
+    disabled: palette('White', 'Disabled'),
+    hint: palette('White', 'Hint Text'),
+    divider: palette('White', 'Dividers'),
+}
+
+$color = merge(
+    {
+        primary-lightest: palette($color-primary, '50'),
+        primary-light: palette($color-primary, '200'),
+        primary: palette($color-primary, '500'),
+        primary-dark: palette($color-primary, '700'),
+        primary-darkest: palette($color-primary, '900'),
+
+        accent-lightest: palette($color-accent, '50'),
+        accent-light: palette($color-accent, '200'),
+        accent: palette($color-accent, '500'),
+        accent-dark: palette($color-accent, '700'),
+        accent-darkest: palette($color-accent, '900'),
+
+        grey-lightest: palette($color-grey, '50'),
+        grey-light: palette($color-grey, '200'),
+        grey: palette($color-grey, '500'),
+        grey-dark: palette($color-grey, '700'),
+        grey-darkest: palette($color-grey, '900'),
+    },
+    _override--color)
+
+$color['font'] = {}
+$color['font']['dark'] = merge(_default--color--font--dark,
+                               _override--color--font--dark)
+$color['font']['light'] = merge(_default--color--font--light,
+                                _override--color--font--light)
+
+
+// Fonts
+// ======
+
+// Roboto is used as the default font family.  Roboto is typically **not** a
+// system font and must be installed (available on Google Fonts).
+//
+_default--font--family ?= 'Roboto'\, 'Noto'\, sans-serif
+
+// UNB Pretty specifies font sizes in the CSS standard ``rem`` unit.
+// Google's Material Design uses ``sp`` (scalable pixels) which are
+// platform dependent (Android).  The comments below show the conversion
+// from ``sp`` to ``rem`` based on a 16px default font size.
+//
+_default--font--size = {
+    xs: 0.750rem,      // 12px
+    sm: 0.875rem,      // 14px
+    md: 1.000rem,      // 16px
+    lg: 1.250rem,      // 20px
+    xl: 1.500rem,      // 24px
+    xxl: 2.125rem,     // 34px
+    xxxl: 2.813rem,    // 45px
+    xxxxl: 3.500rem,   // 56px
+    xxxxxl: 7.000rem,  // 112px
+}
+
+_default--font--weight = {
+    light: 300,
+    regular: 400,
+    medium: 500,
+}
+
+
+/*
+ Capture the current $font map so we can merge it with the defaults
+ later.
+ */
+_override--font = $font || {}
+_override--font--primary = _override--font['primary'] || {}
+_override--font--accent = _override--font['accent'] || {}
+_override--font--style = _override--font['style'] || {}
+
+$font = {}
+
+$font['primary'] = {
+    family: _override--font--primary['family'] || _default--font--family,
+    size: merge(_default--font--size, _override--font--primary['size']),
+    weight: merge(_default--font--weight, _override--font--primary['weight']),
+}
+
+$font['accent'] = {
+    family: _override--font--accent['family'] || _default--font--family,
+    size: merge(_default--font--size, _override--font--accent['size']),
+    weight: merge(_default--font--weight, _override--font--accent['weight']),
+}
+
+$font['style'] = {}
+
+$font['style']['display4'] = merge(
+    {
+        family: $font.primary.family,
+        size: $font.primary.size.xxxxxl,
+        height: 8.000rem,
+        weight: $font.primary.weight.light,
+        spacing: -0.010rem,
+    },
+    _override--font--style['display4'])
+
+$font['style']['display3'] = merge(
+    {
+        family: $font.primary.family,
+        size: $font.primary.size.xxxxl,
+        height: 4.000rem,
+        weight: $font.primary.weight.regular,
+        spacing: -0.005rem,
+    },
+    _override--font--style['display3'])
+
+$font['style']['display2'] = merge(
+    {
+        family: $font.primary.family,
+        size: $font.primary.size.xxxl,
+        height: 4.000rem,
+        weight: $font.primary.weight.regular,
+    },
+    _override--font--style['display2'])
+
+$font['style']['display1'] = merge(
+    {
+        family: $font.primary.family,
+        size: $font.primary.size.xxl,
+        height: 3.250rem,
+        weight: $font.primary.weight.regular,
+    },
+    _override--font--style['display1'])
+
+$font['style']['headline'] = merge(
+    {
+        family: $font.primary.family,
+        size: $font.primary.size.xl,
+        height: 2.750rem,
+        weight: $font.primary.weight.regular,
+    },
+    _override--font--style['headline'])
+
+$font['style']['title'] = merge(
+    {
+        family: $font.primary.family,
+        size: $font.primary.size.lg,
+        height: 2.750rem,
+        weight: $font.primary.weight.medium,
+        spacing: 0.005em,
+    },
+    _override--font--style['title'])
+
+$font['style']['subheading'] = merge(
+    {
+        family: $font.primary.family,
+        size: $font.primary.size.md,
+        height: 2.000rem,
+        weight: $font.primary.weight.regular,
+        spacing: 0.010rem,
+    },
+    _override--font--style['subheading'])
+
+$font['style']['body2'] = merge(
+    {
+        family: $font.primary.family,
+        size: $font.primary.size.sm,
+        height: 1.563rem,
+        weight: $font.primary.weight.medium,
+        spacing: 0.010rem,
+    },
+    _override--font--style['body2'])
+
+$font['style']['body'] = merge(
+    {
+        family: $font.primary.family,
+        size: $font.primary.size.sm,
+        height: 1.563rem,
+        weight: $font.primary.weight.regular,
+        spacing: 0.010rem,
+    },
+    _override--font--style['body'])
+
+$font['style']['caption'] = merge(
+    {
+        family: $font.primary.family,
+        size: $font.primary.size.xs,
+        height: 2.000rem,
+        weight: $font.primary.weight.regular,
+        spacing: 0.020rem,
+    },
+    _override--font--style['caption'])
+
+$font['style']['button'] = merge(
+    {
+        family: $font.primary.family,
+        size: $font.primary.size.sm,
+        height: 2.000rem,
+        weight: $font.primary.weight.medium,
+        transform: uppercase,
+        spacing: 0.010rem,
+    },
+    _override--font--style['button'])
