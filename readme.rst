@@ -29,19 +29,79 @@ Or manually add ``unb-pretty`` to your package.json requirements.
 Usage
 =====
 
-Using the webpack `stylus-loader <https://github.com/shama/stylus-loader>`_ you
-can import unb-pretty by its package name.
+The simplest way to use UNB Pretty is to require this module in your code.
+This method uses the default configuration, and includes all UNB Pretty
+modules.
+
+.. NOTE:: Using the webpack `stylus-loader
+          <https://github.com/shama/stylus-loader>`_ you can import unb-pretty
+          by its package name.
 
 .. code:: stylus
 
-    @require "~unb-pretty/main"
+    // my-project.styl
 
-You can also import components or libraries separately.
+    @require '~unb-pretty/main'
+
+
+If you only want to override a few of the default configuration values, you can
+do that before importing `unb-pretty/main`, like so:
 
 .. code:: stylus
 
-    @require "~unb-pretty/screen"
-    @require "~unb-pretty/third/palette"
+    // my-project.styl
+
+    $color-primary = 'Orange'
+    $color-accent = 'Purple'
+
+    @require '~unb-pretty/main'
+
+
+If you want more control over the configuration or the modules that are
+imported, you should import the dependencies, config and modules separately.
+The modules here must be imported in order, as each one depends on the
+previous.
+
+.. code:: stylus
+
+    // my-project.styl
+
+    @require '~unb-pretty/dependencies'
+    @require '~unb-pretty/config'
+    @require '~unb-pretty/modules'
+
+
+Generally, it's a good idea to have a project-specific ``config`` file, and
+import and override the ``unb-pretty/config`` module there.
+
+    // my-project-config.styl
+
+    $color-primary = 'Orange'
+    $color-accent = 'Purple'
+
+    @require '~unb-pretty/config'
+
+    $color.primary-dark = darken($color.primary-dark, 10)
+
+
+    // my-project.styl
+
+    @require '~unb-pretty/dependencies'
+    @require 'my-project-config'
+    @require '~unb-pretty/modules'
+
+
+You can also import only specific modules, but make sure you've also imported
+any dependencies they have.
+
+.. code:: stylus
+
+    // my-project.styl
+
+    @require '~unb-pretty/dependencies'
+    @require 'my-project-config'
+    @require '~unb-pretty/modules/buttons'
+    @require '~unb-pretty/modules/tables'
 
 
 .. WARNING:: The package structure hasn't been finalized and is subject to
