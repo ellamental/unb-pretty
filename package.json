@@ -1,6 +1,6 @@
 {
   "name": "unb-pretty",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CSS/Stylus library",
   "main": "index.js",
   "style": "dist/css/index.css",

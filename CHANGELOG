@@ -1,0 +1,19 @@
+0.0.2
+=====
+
+- Move configuration from var.styl to config.styl.
+- Change the way configuration is handled to allow the user to use hash
+  notation to override config values even before importing unb-pretty/config.
+
+
+0.0.1
+=====
+
+- Ported unb-pretty to a separate package.
+
+
+
+Also See
+========
+
+[The beginnings of a changelog standard?](http://keepachangelog.com/)
