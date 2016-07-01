@@ -1,0 +1,37 @@
+/*
+#######################
+UNB Pretty Dependencies
+#######################
+
+Dependencies used by UNB Pretty.
+
+This is split into a separate module to support configuration overrides in user
+projects.  See the usage documentation in ``unb-pretty/main`` for more details.
+
+*/
+
+// Normalize
+//
+// TODO(nick): This should probably be a mixin.
+//
+@require "third/normalize"
+
+
+// Colors (Google Material Design)
+//
+@require "third/palette"
+
+
+// Icons (Font Awesome)
+//
+// UNB Pretty uses Font Awesome as its default icon set.
+//
+//
+// TODO(nick): Icons should be overridable both individually and as a set.
+//
+@require "icons/font-awesome/index"
+
+
+// Screen (Media Queries)
+//
+@require "lib/screen"

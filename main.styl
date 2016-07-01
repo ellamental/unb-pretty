@@ -6,433 +6,89 @@ UNB Pretty
 A generalized library of CSS/Stylus classes and functions designed to serve as
 a foundation/starting point for individual projects.
 
+Usage
+=====
+
+The simplest way to use UNB Pretty is to require this module in your code.
+This method uses the default configuration, and includes all UNB Pretty
+modules.
+
+.. code:: stylus
+
+    // my-project.styl
+
+    @require '~unb-pretty/main'
+
+
+If you only want to override a few of the default configuration values, you can
+do that before importing `unb-pretty/main`, like so:
+
+.. code:: stylus
+
+    // my-project.styl
+
+    $color-primary = 'Orange'
+    $color-accent = 'Purple'
+
+    @require '~unb-pretty/main'
+
+
+If you want more control over the configuration or the modules that are
+imported, you should import the dependencies, config and modules separately.
+The modules here must be imported in order, as each one depends on the
+previous.
+
+.. code:: stylus
+
+    // my-project.styl
+
+    @require '~unb-pretty/dependencies'
+    @require '~unb-pretty/config'
+    @require '~unb-pretty/modules'
+
+
+Generally, it's a good idea to have a project-specific ``config`` file, and
+import and override the ``unb-pretty/config`` module there.
+
+    // my-project-config.styl
+
+    $color-primary = 'Orange'
+    $color-accent = 'Purple'
+
+    @require '~unb-pretty/config'
+
+    $color.primary-dark = darken($color.primary-dark, 10)
+
+
+    // my-project.styl
+
+    @require '~unb-pretty/dependencies'
+    @require 'my-project-config'
+    @require '~unb-pretty/modules'
+
+
+You can also import only specific modules, but make sure you've also imported
+any dependencies they have.
+
+.. code:: stylus
+
+    // my-project.styl
+
+    @require '~unb-pretty/dependencies'
+    @require 'my-project-config'
+    @require '~unb-pretty/modules/buttons'
+    @require '~unb-pretty/modules/tables'
+
+
 
 Origins
-========
+=======
 
 UNB Pretty is an extension of Google's `Material Design style guide
 <https://www.google.com/design/spec/material-design/introduction.html>`_.
 
 */
 
-// Hack to fix indenting in Emacs stylus-mode.
-_ = ''
-
-
-// ############################################################################
-// Library and Third Party Imports
-// ############################################################################
-
-// Normalize
-//
-@require "third/normalize"
-
-
-// Colors (Google Material Design)
-//
-@require "third/palette"
-
-
-// Icons (Font Awesome)
-//
-// UNB Pretty uses Font Awesome as its default icon set.
-//
-//
-// TODO(nick): Icons should be overridable both individually and as a set.
-//
-@require "icons/font-awesome/index"
-
-
-// Screen (Media Queries)
-//
-@require "screen"
-
-
-// ############################################################################
-// UNB Pretty Modules
-// ############################################################################
-
+@require "dependencies"
 @require "config"
-
-
-
-// ############################################################################
-// Pages / Containers
-// ############################################################################
-//
-// Various containers for both fluid and fixed layouts.
-//
-//
-// TODO(nick): What is a good set of containers?
-//
-//             - fluid
-//             - fixed
-//             - centered
-//             - left/right justified?
-//             - full width?
-//
-
-.container--fluid--centered {
-    margin: auto;
-    width: 90%;
-}
-
-
-// ############################################################################
-// Icons
-// ############################################################################
-//
-// Icon defaults (inherited by the icon sets).
-//
-//
-// TODO(nick): Icons should inherit from these defaults.  Also, there should be
-//             a set of standard UNB Pretty icons, instead of just exposing
-//             Font Awesome, that defines standard icon names and styles.
-//
-
-.icon {
-    color: $color.font.dark.icon;
-}
-
-
-
-// ############################################################################
-// Typography
-// ############################################################################
-//
-// Styles for fonts and a selection of pre-made types of font.
-//
-//
-// .. seealso:: https://www.google.com/design/spec/style/typography.html
-//
-
-
-.font--display4 {
-    font-family: $font.style.display4.family;
-    font-size: $font.style.display4.size;
-    font-weight: $font.style.display4.weight;
-    line-height: $font.style.display4.height;
-    letter-spacing: $font.style.display4.spacing;
-}
-
-.font--display3 {
-    font-family: $font.style.display3.family;
-    font-size: $font.style.display3.size;
-    font-weight: $font.style.display3.weight;
-    line-height: $font.style.display3.height;
-    letter-spacing: $font.style.display3.spacing;
-}
-
-.font--display2 {
-    font-family: $font.style.display2.family;
-    font-size: $font.style.display2.size;
-    font-weight: $font.style.display2.weight;
-    line-height: $font.style.display2.height;
-}
-
-.font--display1 {
-    font-family: $font.style.display1.family;
-    font-size: $font.style.display1.size;
-    font-weight: $font.style.display1.weight;
-    line-height: $font.style.display1.height;
-}
-
-.font--headline {
-    font-family: $font.style.headline.family;
-    font-size: $font.style.headline.size;
-    line-height: $font.style.headline.height;
-    font-weight: $font.style.headline.weight;
-}
-
-
-.font--title {
-    font-family: $font.style.title.family;
-    font-size: $font.style.title.size;
-    font-weight: $font.style.title.weight;
-    line-height: $font.style.title.height;
-    letter-spacing: $font.style.title.spacing;
-}
-
-
-.font--subheading {
-    font-family: $font.style.subheading.family;
-    font-size: $font.style.subheading.size;
-    font-weight: $font.style.subheading.weight;
-    line-height: $font.style.subheading.height;
-    letter-spacing: $font.style.subheading.spacing;
-}
-
-
-.font--body2 {
-    font-family: $font.style.body2.family;
-    font-size: $font.style.body2.size;
-    font-weight: $font.style.body2.weight;
-    line-height: $font.style.body2.height;
-    letter-spacing: $font.style.body2.spacing;
-}
-
-
-.font--body {
-    font-family: $font.style.body.family;
-    font-size: $font.style.body.size;
-    font-weight: $font.style.body.weight;
-    line-height: $font.style.body.height;
-    letter-spacing: $font.style.body.spacing;
-}
-
-
-.font--caption {
-    font-family: $font.style.caption.family;
-    font-size: $font.style.caption.size;
-    font-weight: $font.style.caption.weight;
-    line-height: $font.style.caption.height;
-    letter-spacing: $font.style.caption.spacing;
-}
-
-
-.font--button {
-    font-family: $font.style.button.family;
-    font-size: $font.style.button.size;
-    font-weight: $font.style.button.weight;
-    line-height: $font.style.button.height;
-    letter-spacing: $font.style.button.spacing;
-    text-transform: uppercase;
-}
-
-
-// ############################################################################
-// Links
-// ############################################################################
-//
-// Hyperlink styles.
-//
-
-.link--dark {
-    text-decoration: none;
-    color: $color.font.dark.text;
-
-    &:hover,
-    &:active,
-    &:visited {
-        color: $color.font.dark.text;
-    }
-}
-
-
-
-// ############################################################################
-// Buttons
-// ############################################################################
-//
-// Interactive buttons.
-//
-
-
-button-color($bg-color, $active-color = darken($bg-color, 5), $font-color = white, $border-color = darken($bg-color, 5)) {
-    // Creates a standardized button color scheme.
-    //
-    // Args
-    // -----
-    //
-    //     $bg-color: color
-    //         Background color of the button.
-    //     $active-color: color
-    //         Background color of the button when active.
-    //     $font-color: color
-    //         Color of the text displayed on the button.
-    //     $border-color: color
-    //         Color of the button's border.
-    //
-    // Example
-    // --------
-    //
-    //     .my-cool-button {
-    //         @extends .button;
-    //
-    //         button-color(blue)
-    //     }
-    //
-    //     .my-color-changing-button {
-    //         @extends .button;
-    //
-    //         button-color(blue, green)
-    //     }
-    //
-    color: $font-color;
-    background-color: $bg-color;
-    border-color: $border-color;
-
-    &:hover {
-        background-color: $bg-color;
-    }
-
-    &:active {
-        background-color: $active-color;
-    }
-}
-
-
-.button {
-	  background: transparent none repeat scroll 0px 0px;
-	  border: medium none;
-	  border-radius: 2px;
-	  color: #000;
-	  position: relative;
-	  height: 36px;
-	  min-width: 64px;
-	  padding: 0px 16px;
-	  display: inline-block;
-    font-family: $font.primary.family;
-	  font-size: 14px;
-	  font-weight: 500;
-	  // text-transform: uppercase;
-	  letter-spacing: 0px;
-	  overflow: hidden;
-	  will-change: box-shadow, transform;
-	  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1) 0s, background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-	  outline: medium none;
-	  cursor: pointer;
-	  text-decoration: none;
-	  text-align: center;
-	  line-height: 36px;
-	  vertical-align: middle;
-
-    &:hover {
-  	    background: rgba(158, 158, 158, 0.2) none repeat scroll 0% 0%;
-    }
-    &:active {
-        background: rgba(158, 158, 158, 0.4) none repeat scroll 0% 0%;
-    }
-}
-
-
-
-.button--raised {
-    @extends .button;
-
-  	background: rgba(158, 158, 158, 0.2) none repeat scroll 0% 0%;
-	  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-
-    &:hover {
-  	    background: rgba(158, 158, 158, 0.2) none repeat scroll 0% 0%;
-    }
-
-    &:active {
-        background: rgba(158, 158, 158, 0.4) none repeat scroll 0% 0%;
-        box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12), 0px 2px 4px -1px rgba(0, 0, 0, 0.2);
-    }
-}
-
-
-.button--flat {
-    @extends .button;
-
-  	background: rgba(158, 158, 158, 0.2) none repeat scroll 0% 0%;
-
-    &:hover {
-  	    background: rgba(158, 158, 158, 0.2) none repeat scroll 0% 0%;
-    }
-
-    &:active {
-        background: rgba(158, 158, 158, 0.4) none repeat scroll 0% 0%;
-    }
-}
-
-
-.button--circle {
-	border-radius: 50%;
-	font-size: 24px;
-	height: 56px;
-	margin: auto;
-	min-width: 56px;
-	width: 56px;
-	padding: 0px;
-	overflow: hidden;
-	background: rgba(158, 158, 158, 0.2) none repeat scroll 0% 0%;
-	box-shadow: 0px 1px 1.5px 0px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.24);
-	position: relative;
-	line-height: 56px;
-}
-
-
-
-// ############################################################################
-// Lists
-// ############################################################################
-
-.unstyled-list {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-
-
-.horizontal-list {
-    li { display: inline-block; }
-}
-
-
-
-// ############################################################################
-// Placeholders
-// ############################################################################
-
-// Set default placeholder color/opacity to the Material Design default.
-//
-::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: $color.font.dark.hint;
-}
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: $color.font.dark.hint;
-}
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: $color.font.dark.hint;
-}
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: $color.font.dark.hint;
-}
-
-
-
-// ############################################################################
-// Misc Utilities
-// ############################################################################
-
-/* A div shown only when a dropdown menu is open.  It spans the full screen and
-   captures any clicks outside the dropdown menu.  This both closes the
-   dropdown and prevents the click from activating another element on the
-   page.
-*/
-.dropdown-background-layer {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-
-
-// ############################################################################
-// Global Defaults
-// ############################################################################
-
-html {
-    /* height: 100%; */
-    width: 100%;
-}
-
-
-body {
-    @extends .font--body;
-
-    // Explicitly declare page size.
-    //
-    width: 100%;
-    /* height: 100%; */
-
-    // Default Typography
-    //
-    font-family: $font.primary.family;
-    color: $color.font.dark.text;
-}
+@require "modules"
