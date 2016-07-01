@@ -8,12 +8,22 @@ UNB Pretty is a CSS/Stylus library...
 Installation
 ============
 
-Install via ``npm install`` or manually add ``unb-pretty`` to your package.json
-requirements.
+Install via ``npm install``.
 
 .. code:: shell
 
-    npm install --save-dev unb-pretty
+    npm install unb-pretty --registry https://repo.fury.io/nickfrez/
+
+
+Or manually add ``unb-pretty`` to your package.json requirements.
+
+.. code:: json
+
+    {
+      "dev-requirements": [
+        "unb-pretty": "https://repo.fury.io/nickfrez/unb-pretty/-/0.0.1.tgz",
+      ]
+    }
 
 
 Usage
