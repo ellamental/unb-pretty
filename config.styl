@@ -149,6 +149,7 @@ _override--color--font = _override--color['font'] || {}
 _override--color--font--dark = _override--color--font['dark'] || {}
 _override--color--font--light = _override--color--font['light'] || {}
 
+
 _default--color--font--dark = {
     base: palette('Black', '500'),
     text: palette('Black', 'Text'),
@@ -168,6 +169,7 @@ _default--color--font--light = {
     hint: palette('White', 'Hint Text'),
     divider: palette('White', 'Dividers'),
 }
+
 
 $color = merge(
     {
@@ -191,13 +193,14 @@ $color = merge(
     },
     _override--color)
 
-$color['font'] = {}
-$color['font']['dark'] = merge(_default--color--font--dark,
-                               _override--color--font--dark)
-$color['font']['light'] = merge(_default--color--font--light,
-                                _override--color--font--light)
-$color['font']['primary'] = $color.font[$color-font-primary]
-$color['font']['secondary'] = $color.font[$color-font-secondary]
+$color.font = {}
+$color.font.dark = merge(_default--color--font--dark,
+                         _override--color--font--dark)
+$color.font.light = merge(_default--color--font--light,
+                          _override--color--font--light)
+$color.font.primary = $color.font[$color-font-primary]
+$color.font.secondary = $color.font[$color-font-secondary]
+
 
 
 // Fonts
@@ -206,7 +209,7 @@ $color['font']['secondary'] = $color.font[$color-font-secondary]
 // Roboto is used as the default font family.  Roboto is typically **not** a
 // system font and must be installed (available on Google Fonts).
 //
-_default--font--family ?= 'Roboto'\, 'Noto'\, sans-serif
+_default--font--family ?= unquote("'Roboto', 'Noto', sans-serif")
 
 // UNB Pretty specifies font sizes in the CSS standard ``rem`` unit.
 // Google's Material Design uses ``sp`` (scalable pixels) which are
@@ -241,23 +244,26 @@ _override--font--primary = _override--font['primary'] || {}
 _override--font--accent = _override--font['accent'] || {}
 _override--font--style = _override--font['style'] || {}
 
+
 $font = {}
 
-$font['primary'] = {
+$font.primary = {
     family: _override--font--primary['family'] || _default--font--family,
     size: merge(_default--font--size, _override--font--primary['size']),
     weight: merge(_default--font--weight, _override--font--primary['weight']),
 }
 
-$font['accent'] = {
+
+$font.accent = {
     family: _override--font--accent['family'] || _default--font--family,
     size: merge(_default--font--size, _override--font--accent['size']),
     weight: merge(_default--font--weight, _override--font--accent['weight']),
 }
 
-$font['style'] = {}
 
-$font['style']['display4'] = merge(
+$font.style = {}
+
+$font.style.display4 = merge(
     {
         family: $font.primary.family,
         size: $font.primary.size.xxxxxl,
@@ -267,7 +273,8 @@ $font['style']['display4'] = merge(
     },
     _override--font--style['display4'])
 
-$font['style']['display3'] = merge(
+
+$font.style.display3 = merge(
     {
         family: $font.primary.family,
         size: $font.primary.size.xxxxl,
@@ -277,7 +284,8 @@ $font['style']['display3'] = merge(
     },
     _override--font--style['display3'])
 
-$font['style']['display2'] = merge(
+
+$font.style.display2 = merge(
     {
         family: $font.primary.family,
         size: $font.primary.size.xxxl,
@@ -286,7 +294,8 @@ $font['style']['display2'] = merge(
     },
     _override--font--style['display2'])
 
-$font['style']['display1'] = merge(
+
+$font.style.display1 = merge(
     {
         family: $font.primary.family,
         size: $font.primary.size.xxl,
@@ -295,7 +304,8 @@ $font['style']['display1'] = merge(
     },
     _override--font--style['display1'])
 
-$font['style']['headline'] = merge(
+
+$font.style.headline = merge(
     {
         family: $font.primary.family,
         size: $font.primary.size.xl,
@@ -304,7 +314,8 @@ $font['style']['headline'] = merge(
     },
     _override--font--style['headline'])
 
-$font['style']['title'] = merge(
+
+$font.style.title = merge(
     {
         family: $font.primary.family,
         size: $font.primary.size.lg,
@@ -314,7 +325,8 @@ $font['style']['title'] = merge(
     },
     _override--font--style['title'])
 
-$font['style']['subheading'] = merge(
+
+$font.style.subheading = merge(
     {
         family: $font.primary.family,
         size: $font.primary.size.md,
@@ -324,7 +336,8 @@ $font['style']['subheading'] = merge(
     },
     _override--font--style['subheading'])
 
-$font['style']['body2'] = merge(
+
+$font.style.body2 = merge(
     {
         family: $font.primary.family,
         size: $font.primary.size.sm,
@@ -334,7 +347,8 @@ $font['style']['body2'] = merge(
     },
     _override--font--style['body2'])
 
-$font['style']['body'] = merge(
+
+$font.style.body = merge(
     {
         family: $font.primary.family,
         size: $font.primary.size.sm,
@@ -344,7 +358,8 @@ $font['style']['body'] = merge(
     },
     _override--font--style['body'])
 
-$font['style']['caption'] = merge(
+
+$font.style.caption = merge(
     {
         family: $font.primary.family,
         size: $font.primary.size.xs,
@@ -354,7 +369,8 @@ $font['style']['caption'] = merge(
     },
     _override--font--style['caption'])
 
-$font['style']['button'] = merge(
+
+$font.style.button = merge(
     {
         family: $font.primary.family,
         size: $font.primary.size.sm,
