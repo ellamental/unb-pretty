@@ -12,7 +12,7 @@ To allow for easier user overrides, the config module uses a slightly
 obfuscated variable definition method.  This is a simple overview of the
 variable hierarchy that is ultimately defined.
 
-.. code:: css
+.. sourcecode:: css
 
     $color = {
       primary*: primary color and variants
@@ -67,7 +67,7 @@ the ``$color-primary`` variable is used to set ``$color.primary*``.  Overriding
 ``$color-primary`` after requiring ``~unb-pretty/config`` will have no effect on
 ``$color.primary*``.
 
-.. code:: css
+.. sourcecode:: css
 
     // my-config.styl
 
@@ -93,7 +93,7 @@ the ``$color-primary`` variable is used to set ``$color.primary*``.  Overriding
 
 Overriding variables after requiring ``~unb-pretty/config`` may also be useful.
 
-.. code:: css
+.. sourcecode:: css
 
     // my-config.styl
 
@@ -110,7 +110,7 @@ Overriding nested variables
 To override a variable defined within a hash, you need only to recreate the
 hash structure in your override.
 
-.. code:: css
+.. sourcecode:: css
 
     // my-config.styl
 
