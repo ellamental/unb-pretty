@@ -1,9 +1,9 @@
 {
   "name": "unb-pretty",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "CSS/Stylus library",
   "main": "index.js",
-  "style": "dist/css/index.css",
+  "style": "main.styl",
   "stylus": "main.styl",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

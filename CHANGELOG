@@ -1,3 +1,33 @@
+0.0.3
+=====
+
+- Convert to placeholder selectors for ``@extend``-able classes!
+
+  This means that only the placeholder classes that are extended by user code
+  will be included in the output css.  This is a huge win in the battle against
+  framework bloat, and allows the UNB Pretty library to grow arbitrarily large
+  without affecting the user.
+
+  This also encourages the user to not use UNB Pretty classes directly in their
+  html.  Hopefully users realize that they can now use semantic class names and
+  ``@extend`` them with the placeholder classes.  However, this "best practice"
+  needs to be better documented with examples and rationales.
+
+- Set config values using dot notation.
+
+  This makes the default config file cleaner and more readable.
+
+- Split UNB Pretty into modules.
+
+  This allows the user to import only the parts of UNB Pretty they want (though
+  this isn't much of a concern now that UNB Pretty classes have been converted
+  to placeholders).  It also helps organize the library for developer sanity.
+
+- Add some reStructuredText docs in the /docs/ directory.
+
+- Update the README
+
+
 0.0.2
 =====
 
