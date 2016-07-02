@@ -12,7 +12,7 @@ know they should update their docs).
 How/Where to get the project
 ----------------------------
 
-UNB Pretty is hosted at https://github.com/nickfrez/unb-pretty.
+UNB Pretty is hosted at https://bitbucket.org/nickfrez/unb-pretty.
 
 You can clone the repo with the following command.
 
@@ -122,7 +122,7 @@ How to submit a patch
    **Review early, review often.**
 
    When you've reached a state where you're ready to share your code, create a
-   pull request.  See the documentation at github.com for more
+   pull request.  See the documentation at bitbucket.org for more
    information.
 
    Ideally you should create a pull request as soon as you have a reasonably
