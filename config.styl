@@ -140,6 +140,9 @@ $color-accent ?= 'Deep Orange'
 $color-grey ?= 'Grey'
 // $color-grey ?= 'Blue Grey'
 
+$color-font-primary = 'dark'
+$color-font-secondary = 'light'
+
 
 _override--color = $color || {}
 _override--color--font = _override--color['font'] || {}
@@ -193,6 +196,8 @@ $color['font']['dark'] = merge(_default--color--font--dark,
                                _override--color--font--dark)
 $color['font']['light'] = merge(_default--color--font--light,
                                 _override--color--font--light)
+$color['font']['primary'] = $color.font[$color-font-primary]
+$color['font']['secondary'] = $color.font[$color-font-secondary]
 
 
 // Fonts

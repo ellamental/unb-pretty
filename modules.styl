@@ -16,69 +16,8 @@ _ = ''
 
 @require "modules/buttons"
 @require "modules/containers"
+@require "modules/dropdowns"
 @require "modules/icons"
 @require "modules/lists"
+@require "modules/placeholders"
 @require "modules/typography"
-
-
-
-// ############################################################################
-// Links
-// ############################################################################
-//
-// Hyperlink styles.
-//
-
-.link--dark {
-    text-decoration: none;
-    color: $color.font.dark.text;
-
-    &:hover,
-    &:active,
-    &:visited {
-        color: $color.font.dark.text;
-    }
-}
-
-
-
-// ############################################################################
-// Placeholders
-// ############################################################################
-
-// Set default placeholder color/opacity to the Material Design default.
-//
-::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: $color.font.dark.hint;
-}
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: $color.font.dark.hint;
-}
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: $color.font.dark.hint;
-}
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: $color.font.dark.hint;
-}
-
-
-
-// ############################################################################
-// Misc Utilities
-// ############################################################################
-
-/* A div shown only when a dropdown menu is open.  It spans the full screen and
-   captures any clicks outside the dropdown menu.  This both closes the
-   dropdown and prevents the click from activating another element on the
-   page.
-*/
-.dropdown-background-layer {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-
-

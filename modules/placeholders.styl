@@ -1,0 +1,49 @@
+// ############################################################################
+// Placeholders
+// ############################################################################
+
+placeholder(color=$color.font.primary.hint)
+    /* Vendor prefix for the input placeholder selector.
+
+    Parameters
+    ----------
+    color (default=$color.font.primary.hint)
+        color attribute
+
+    Usage
+    -----
+    Use this alone, at the top level to define default placeholder behavior.
+
+    .. code:: css
+
+        placeholder()
+
+    Or call this from within a selector to define placeholder behavior for that
+    specific selector.
+
+    .. code:: css
+
+        .my-class {
+            placeholder(orange)
+        }
+
+   */
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color: color;
+        {block}
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: color;
+        {block}
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: color;
+        {block}
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: color;
+        {block}
+    }
+
+
+
