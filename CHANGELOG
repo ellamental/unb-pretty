@@ -3,6 +3,10 @@
 
 - Move to prefixed names (ex: `$list--unstyled` instead of `$unstyled-list`).
 
+- Add Google Material Icons
+
+- Prefix icon function names (ex: `icon--fa(user)` and `icon--mi(build)`).
+
 
 0.0.2
 =====
