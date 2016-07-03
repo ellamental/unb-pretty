@@ -1,6 +1,12 @@
 0.0.3
 =====
 
+- Move to prefixed names (ex: `$list--unstyled` instead of `$unstyled-list`).
+
+
+0.0.2
+=====
+
 - Convert to placeholder selectors for ``@extend``-able classes!
 
   This means that only the placeholder classes that are extended by user code
@@ -27,11 +33,8 @@
 
 - Update the README
 
-
-0.0.2
-=====
-
 - Move configuration from var.styl to config.styl.
+
 - Change the way configuration is handled to allow the user to use hash
   notation to override config values even before importing unb-pretty/config.
 
