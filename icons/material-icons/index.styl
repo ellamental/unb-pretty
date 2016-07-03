@@ -1,0 +1,84 @@
+/*
+#####################
+Google Material Icons
+#####################
+
+Google's Material Design icon set.
+
+`View Icons <https://design.google.com/icons/>`_
+`Developer Guide <http://google.github.io/material-design-icons/>`_
+
+Usage
+=====
+
+Quick start:
+
+.. code:: stylus
+
+    @require "~unb-pretty/icons/material-design"
+
+    .my-class {
+        icon--mi(face)
+    }
+
+
+Naming
+======
+
+The icon set shows icon names with spaces.  Spaces are converted to underscores
+to get the variable name.
+
+.. code:: stylus
+
+    // "icon name with spaces"
+    //
+    .my-class {
+        icon--mi(icon_name_with_spaces)
+    }
+
+
+Updating to new Material Icon Versions
+======================================
+
+Variables are generated using the ``gen_vars.py`` script in this directory.
+
+.. code:: shell
+
+    python gen_vars.py
+
+This will (over)write the ``icons.styl`` file.
+
+*/
+
+@require "icons"
+
+
+$icon--material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+
+icon--mi(icon)
+    @extends $icon--material-icons
+    content: $icon--mi--icon-- + icon

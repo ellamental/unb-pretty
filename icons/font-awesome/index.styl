@@ -1,5 +1,22 @@
 @import "font-awesome"
 
+
+icon--fa(icon)
+    font-family FontAwesome
+    content $fa-var- + icon
+
+
+
+// DEPRECATED
+// ==========
+//
+// Switching to namespaced names to avoid namespace pollution.
+//
+
+fa(icon)
+    font-family FontAwesome
+    content $fa-var- + icon
+
 // fa(icon)
 //   display inline-block
 //   font-family FontAwesome
@@ -11,6 +28,3 @@
 //   &:before
 //     content $fa-var- + icon
 
-fa(icon)
-  font-family FontAwesome
-  content $fa-var- + icon
