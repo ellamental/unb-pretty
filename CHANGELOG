@@ -7,6 +7,8 @@
 
 - Prefix icon function names (ex: `icon--fa(user)` and `icon--mi(build)`).
 
+- Add $link--no-outline
+
 
 0.0.2
 =====
