@@ -7,7 +7,13 @@
 
 - Prefix icon function names (ex: `icon--fa(user)` and `icon--mi(build)`).
 
-- Add $link--no-outline
+- Add `$link--no-outline`.
+
+- Add modules/misc for random stuff.
+
+- Try to normalize icon fonts a bit... This is going to be difficult since the
+  icon sizes will vary between sets.  Normalizing `font-size` and `line-height`
+  isn't sufficient.
 
 
 0.0.2

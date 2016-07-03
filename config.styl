@@ -242,6 +242,7 @@ _default--font--weight = {
 _override--font = $font || {}
 _override--font--primary = _override--font['primary'] || {}
 _override--font--accent = _override--font['accent'] || {}
+_override--font--icon = _override--font['icon'] || {}
 _override--font--style = _override--font['style'] || {}
 
 
@@ -258,6 +259,10 @@ $font.accent = {
     family: _override--font--accent['family'] || _default--font--family,
     size: merge(_default--font--size, _override--font--accent['size']),
     weight: merge(_default--font--weight, _override--font--accent['weight']),
+}
+
+$font.icon = {
+    size: merge(_default--font--size, _override--font--icon['size']),
 }
 
 
