@@ -6,27 +6,39 @@ Input Styles and Widgets
 */
 
 
-// TODO(nick): This mixin only works with fixed-width input boxes.  Percentage
-//             widths do not work.
-//
 $text-field {
+    _transition-duration = 0.3s
+
     display: inline-block;
-    width: 200px;
+    width: initial;
     padding: 10px 0;
     margin: $padding.lg $padding.md;
     border: none;
     border-bottom: solid 1px $color.grey;
+
+    // A mostly transparent background, with the primary color at the bottom
+    // to mimic an underline.  Adjust the percentages to adjust the size of the
+    // highlight.
+    //
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $color.primary 4%);
-    background-position: -(@width) 0;
-    background-size: @width 100%;
     background-repeat: no-repeat;
-    transition: background 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+
+    // Animation point of origin.
+    //
+    background-position: 50% 0;      // Expand in both directions from center
+    // background-position: 0 0;     // Expand from left -> right
+    // background-position: 100% 0;  // Expand from right -> left
+
+    // We only need to animate the background-size to achieve the underline.
+    //
+    background-size: 0% 100%;
+    transition: background-size _transition-duration cubic-bezier(0.64, 0.09, 0.08, 1);
 
     &:focus {
         border-color: $color.primary;
         box-shadow: none;
         outline: none;
-        background-position: 0 0;
+        background-size: 100% 100%;
     }
 
     &:focus {
@@ -34,6 +46,7 @@ $text-field {
             color: $color.primary;
             font-size: 0.75rem;
             transform: translateY(-20px);
+            transition: transform _transition-duration;
             visibility: visible !important;
         }
     }
