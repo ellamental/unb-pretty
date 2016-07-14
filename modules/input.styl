@@ -10,9 +10,13 @@ $text-field {
     _transition-duration = 0.3s
 
     display: inline-block;
-    width: initial;
-    padding: 10px 0;
+
+    padding: $padding.md 0;
     margin: $padding.lg $padding.md;
+
+    // Remove any standard borders and set the bottom border to underline the
+    // input.
+    //
     border: none;
     border-bottom: solid 1px $color.grey;
 
@@ -29,24 +33,43 @@ $text-field {
     // background-position: 0 0;     // Expand from left -> right
     // background-position: 100% 0;  // Expand from right -> left
 
-    // We only need to animate the background-size to achieve the underline.
+    // We only need to animate background-size to achieve the underline.
     //
     background-size: 0% 100%;
-    transition: background-size _transition-duration cubic-bezier(0.64, 0.09, 0.08, 1);
+    transition: background-size _transition-duration cubic-bezier(0.64, 0.09, 0.08, 1),
+                border-color _transition-duration cubic-bezier(0.64, 0.09, 0.08, 1);
+
+    // Transition the border-color so there's no grey bottom on the underline.
+    //
+    /* transition: border-color _transition-duration cubic-bezier(0.64, 0.09, 0.08, 1); */
 
     &:focus {
+        // The background creates a bold underline in the app's primary color.
+        //
+        background-size: 100% 100%;
         border-color: $color.primary;
+
+        // Override some default browser styles for focused inputs.
+        //
         box-shadow: none;
         outline: none;
-        background-size: 100% 100%;
     }
 
     &:focus {
         +placeholder() {
+            // Highlight and shrink the placeholder font.
+            //
             color: $color.primary;
             font-size: 0.75rem;
+
+            // Smoothly move the placeholder text above the user-entered input.
+            //
             transform: translateY(-20px);
             transition: transform _transition-duration;
+
+            // Prevent default styles from hiding the placeholder text when the
+            // input element has focus (usually the default behavior).
+            //
             visibility: visible !important;
         }
     }
