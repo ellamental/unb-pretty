@@ -9,8 +9,8 @@ Input Styles and Widgets
 $text-field {
     display: inline-block;
 
-    padding: $padding.md 0;
-    margin: $padding.lg $padding.md;
+    padding: $padding.md;
+    margin: $padding.xxl $padding.md;
 
     // Remove any standard borders and set the bottom border to underline the
     // input.
@@ -71,6 +71,12 @@ $text-field {
             //
             visibility: visible !important;
         }
+    }
+
+    &.error {
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $color.error 4%);
+        border-color: $color.error;
+        animation: shake $transition-duration ease-in-out;
     }
 
     // Chrome on iOS adds some kind of border-radius to ``input`` fields.  The
