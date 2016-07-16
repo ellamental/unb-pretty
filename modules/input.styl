@@ -6,6 +6,13 @@ Input Styles and Widgets
 */
 
 
+$fieldset--unstyled {
+    border: none;
+    padding: none;
+    margin: none;
+}
+
+
 $text-field {
     display: inline-block;
 
@@ -74,15 +81,40 @@ $text-field {
     }
 
     &.error {
+        // Add the class ``error`` to a ``$text-field`` to trigger the error
+        // state.
+
+        // Overwrite the border and focus underline with the error color.
+        //
         background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $color.error 4%);
         border-color: $color.error;
+
+        // Apply a shake animation to call user attention to elements with
+        // errors.
+        //
         animation: shake $transition-duration ease-in-out;
+    }
+
+    & + .error-message {
+        // To display error messages for a ``$text-field`` just add an element
+        // directly after the ``$text-field`` (an `adjacent sibling
+        // <https://www.w3.org/TR/CSS2/selector.html#adjacent-selectors>`_)
+        // with the ``error-message`` class.
+        //
+        @extends $font--caption;
+
+        position: relative;
+        top: -($padding.xxxl);
+        left: 0;
+        color: $color.error;
     }
 
     // Chrome on iOS adds some kind of border-radius to ``input`` fields.  The
     // styles below don't fix it, but I'm leaving this here as a reminder.
     //
-    // &[type="text"] {
-    //     border-radius: 0;
-    // }
+    &,
+    &[type="text"] {
+        -webkit-appearance: none;
+        border-radius: 0;
+    }
 }

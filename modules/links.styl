@@ -6,17 +6,24 @@
 //
 
 
-$link--unstyled {
-    text-decoration: none;
-}
-
-
 $link--no-outline {
     &,
     &:visited {
         outline: none;
     }
 }
+
+
+$link--no-underline {
+    text-decoration: none;
+}
+
+
+$link--unstyled {
+    @extends $link--no-outline;
+    @extends $link--no-underline;
+}
+
 
 
 
