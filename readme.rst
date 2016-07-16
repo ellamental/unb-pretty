@@ -38,7 +38,7 @@ modules.
           <https://github.com/shama/stylus-loader>`_ you can import unb-pretty
           by its package name.
 
-.. code:: stylus
+.. code:: css
 
     // my-project.styl
 
@@ -48,7 +48,7 @@ modules.
 If you only want to override a few of the default configuration values, you can
 do that before importing `unb-pretty/main`, like so:
 
-.. code:: stylus
+.. code:: css
 
     // my-project.styl
 
@@ -63,7 +63,7 @@ imported, you should import the dependencies, config and modules separately.
 The modules here must be imported in order, as each one depends on the
 previous.
 
-.. code:: stylus
+.. code:: css
 
     // my-project.styl
 
@@ -74,6 +74,8 @@ previous.
 
 Generally, it's a good idea to have a project-specific ``config`` file, and
 import and override the ``unb-pretty/config`` module there.
+
+.. code:: css
 
     // my-project-config.styl
 
@@ -95,7 +97,7 @@ import and override the ``unb-pretty/config`` module there.
 You can also import only specific modules, but make sure you've also imported
 any dependencies they have.
 
-.. code:: stylus
+.. code:: css
 
     // my-project.styl
 
