@@ -11,56 +11,37 @@
 
 // Sizes
 // =====
+//
+// Size is defined by the screen's *minimum* width.
 
 $screen = {
-    // Size is defined by the screen's *minimum* width.
+  xs: 0,       // Extra small screen / phone
+  sm: 544px,   // Small screen / phone
+  md: 768px,   // Medium screen / tablet
+  lg: 992px,   // Large screen / desktop
+  xl: 1200px,  // Extra large screen / wide desktop
 
-    // No known devices
-    //
-    xxxs:   0px,
-    xxxs-max: 319px;
+  xs-min: 0,
+  xs-max: 543px,
 
-    // Small phone (iPhone 4/5 @320)
-    //
-    xxs:  320px,
-    xxs-max: 359px,
+  sm-min: 544px,
+  sm-max: 767px,
 
-    // Medium phone (lots of phones @360, iPhone 6 @375)
-    //
-    xs:   360px,
-    xs-max: 413px,
+  md-min: 768px,
+  md-max: 991px,
 
-    // Large phone (iPhone 6P @414, Nexus 6P @435 & 5P @411)
-    //
-    sm:   414px,
-    sm-max: 767px,
+  lg-min: 992px,
+  lg-max: 1199px,
 
-    // Small tablet
-    //
-    md:   768px,
-    md-max: 991px,
-
-    // Large tablet / desktop
-    //
-    lg:   992px,
-    lg-max: 1199px,
-
-    // HD desktop
-    //
-    xl:  1200px,
-    xl-max: 1599px,
-
-    // Ultra HD desktop
-    //
-    xxl: 1600px,
-    xxl-max: 20000px,
+  xl-min: 1200px,
+  xl-max: 20000px,
 }
 
 
 // Screen
 // ======
 //
-// Functions to make writing media queries easy.
+// Functions to make writing queries easy.
 //
 // Example
 // -------
@@ -85,10 +66,6 @@ $screen = {
 //     }
 
 screen(size)
-    if size == $screen.xxxs
-        maxWidth = $screen.xxxs-max
-    if size == $screen.xxs
-        maxWidth = $screen.xxs-max
     if size == $screen.xs
         maxWidth = $screen.xs-max
     if size == $screen.sm
@@ -108,10 +85,6 @@ screen-lt(size)
         {block}
 
 screen-lte(size)
-    if size == $screen.xxxs
-        width = $screen.xxxs-max
-    if size == $screen.xxs
-        width = $screen.xxs-max
     if size == $screen.xs
         width = $screen.xs-max
     if size == $screen.sm
@@ -128,10 +101,6 @@ screen-lte(size)
 
 
 screen-gt(size)
-    if size == $screen.xxxs
-        width = $screen.xxxs-max
-    if size == $screen.xxs
-        width = $screen.xxs-max
     if size == $screen.xs
         width = $screen.xs-max
     if size == $screen.sm
@@ -151,10 +120,6 @@ screen-gte(size)
         {block}
 
 screen-in(minSize maxSize)
-    if maxSize == $screen.xxxs
-        maxWidth = $screen.xxxs-max
-    if maxSize == $screen.xxs
-        maxWidth = $screen.xxs-max
     if maxSize == $screen.xs
         maxWidth = $screen.xs-max
     if maxSize == $screen.sm
@@ -165,6 +130,5 @@ screen-in(minSize maxSize)
         maxWidth = $screen.lg-max
     if maxSize == $screen.xl
         maxWidth = $screen.xl-max
-
     @media screen and (min-width: minSize) and (max-width: maxWidth)
         {block}
