@@ -1,0 +1,212 @@
+/*
+#####
+Menus
+#####
+
+Menus are a list of actions.  They may be static, or may popup/dropdown based
+on user focus.
+
+Usage
+=====
+
+.. code:: html
+
+    <ul class="my-menu">
+        <li>
+            <a href="/somewhere">Hello</a>
+        </li>
+        <li>
+            <a href="/other">World</a>
+        </li>
+    </ul>
+
+.. code:: css
+
+    .my-menu {
+        @extends $menu;
+    }
+
+
+Nested Menus
+------------
+
+.. code:: html
+
+    <ul className="user-menu">
+        <li>
+            <a href="#">Home</a>
+        </li>
+        <li>
+            <a href="#">Tasks</a>
+        </li>
+        <li>
+            <a href="#">User</a>
+            <ul>
+                <li><a href="#">Logout</a></li>
+                <li>
+                    <a href="#">Settings</a>
+                    <ul>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Notifications</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Admin</a></li>
+            </ul>
+        </li>
+    </ul>
+
+.. code:: css
+
+    .user-menu {
+        @extends $menu--nested;
+    }
+
+
+``$menu--nested`` provides a quick way of creating nested menus.  If you want
+more control over when, and where nested menus will pop up, you can include
+whatever mixins you want.
+
+.. code:: css
+
+    .user-menu {
+        @extends $menu--nested--base;
+        @extends $menu--nested--focus;
+        @extends $menu--nested--hover;
+        @extends $menu--nested--popup--right;
+    }
+
+*/
+
+
+$menu--item {
+    position: relative;
+
+    a {
+        display: block;
+        border: 10px;
+        box-sizing: border-box;
+        /* cursor: pointer; */
+        text-decoration: none;
+        padding: $padding.lg $padding.xxl $padding.lg $padding.lg;
+        outline: none;
+        color: rgba(0, 0, 0, 0.870588);
+        position: relative;
+        white-space: nowrap;
+        transition: background-color $transition-duration ease;
+    }
+
+    &:hover {
+        & > a {
+            background-color: darken($color.grey-light, 5);
+        }
+    }
+
+    &:active {
+        background-color: lighten($color.grey, 15);
+    }
+}
+
+$menu--item--focus {
+    & > a:focus {
+        background-color: darken($color.grey-light, 5);
+
+        & + ul {
+            display: block;
+            position: absolute;
+        }
+    }
+}
+
+$menu--item--hover {
+    &:hover {
+        & > a {
+            background-color: darken($color.grey-light, 5);
+        }
+        & > ul {
+            display: block;
+            position: absolute;
+        }
+    }
+}
+
+
+$menu--item--nested--popup--left {
+    & > ul {
+        @extends $popup--left;
+    }
+}
+
+$menu--item--nested--popup--right {
+    & > ul {
+        @extends $popup--right;
+    }
+}
+
+
+// =========================== menu ===========================
+
+$menu--base {
+    @extends $list--unstyled;
+
+    display: inline-block;
+    padding: $padding.md 0;
+}
+
+$menu--background {
+    @extends $menu--base;
+
+    border: 1px solid $color.grey-light;
+    border-radius: 3px;
+    box-shadow: $color.grey 0px 1px 6px, $color.grey 0px 1px 4px;
+}
+
+$menu {
+    @extends $menu--background;
+
+    li {
+        @extends $menu--item;
+    }
+}
+
+$menu--nested--base {
+    @extends $menu--background;
+
+    li {
+        @extends $menu--item;
+
+        ul {
+            @extends $menu--background;
+            display: none;
+        }
+    }
+}
+
+$menu--nested--hover {
+    li {
+        @extends $menu--item--hover;
+    }
+}
+$menu--nested--focus {
+    li {
+        @extends $menu--item--focus;
+    }
+}
+$menu--nested--popup--left {
+    li {
+        @extends $menu--item--nested--popup--left;
+    }
+}
+$menu--nested--popup--right {
+    li {
+        @extends $menu--item--nested--popup--right;
+    }
+}
+
+$menu--nested {
+    @extends $menu--nested--base;
+
+    li {
+        @extends $menu--item--hover;                 // when to show
+        @extends $menu--item--nested--popup--right;  // how to show
+    }
+}

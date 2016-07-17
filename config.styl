@@ -51,9 +51,9 @@ variable hierarchy that is ultimately defined.
 How to Override Settings
 ========================
 
-.. WARNING:: You **must** ``@require '~unb-pretty/var'`` before you
+.. WARNING:: You **must** ``@require '~unb-pretty/config'`` before you
              ``@require '~unb-pretty/main'``!  Stylus' ``@require`` mechanism
-             is idempotent and will skip importing the ``unb-pretty/var``
+             is idempotent and will skip importing the ``unb-pretty/config``
              module if it has already been imported.
 
 
@@ -63,21 +63,21 @@ Depending on your goals, you may wish to do either or both.
 
 Some of the variables used here are used to set other variables.  For example,
 the ``$color-primary`` variable is used to set ``$color.primary*``.  Overriding
-``$color-primary`` before requiring ``~unb-pretty/var`` will result in
+``$color-primary`` before requiring ``~unb-pretty/config`` will result in
 ``$color.primary*`` being set to the desired values.  However, overriding
-``$color-primary`` after requiring ``~unb-pretty/var`` will have no effect on
-``$color.primary*``.
+``$color-primary`` after requiring ``~unb-pretty/config`` will have no effect
+on ``$color.primary*``.
 
 .. code:: stylus
 
-    // myvars.styl
+    // myconfig.styl
 
     // Good
     // ====
 
     $color-primary = 'Blue'
 
-    @require '~unb-pretty/var'
+    @require '~unb-pretty/config'
 
     // $color.primary == pallet('Blue', 500)
 
@@ -85,22 +85,22 @@ the ``$color-primary`` variable is used to set ``$color.primary*``.  Overriding
     // Bad
     // ===
 
-    @require '~unb-pretty/var'
+    @require '~unb-pretty/config'
 
     $color-primary = 'Blue'
 
     // $color.primary = pallet('Indigo', 500)  // Indigo is the default
 
 
-Overriding variables after requiring ``~unb-pretty/var`` may also be useful.
+Overriding variables after requiring ``~unb-pretty/config`` may also be useful.
 
 .. code:: stylus
 
-    // myvars.styl
+    // myconfig.styl
 
     $color-primary = 'Blue'
 
-    @require '~unb-pretty/var'
+    @require '~unb-pretty/config'
 
     $color.primary = darken($color.primary, 10)
 
@@ -113,7 +113,7 @@ hash structure in your override.
 
 .. code:: stylus
 
-    // myvars.styl
+    // myconfig.styl
 
     $font = {
         style: {
@@ -123,7 +123,7 @@ hash structure in your override.
         }
     }
 
-    @require '~unb-pretty/var'
+    @require '~unb-pretty/config'
 
 
 */
