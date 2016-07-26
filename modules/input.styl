@@ -13,6 +13,172 @@ $fieldset--unstyled {
 }
 
 
+$input--text {
+    display: inline-block;
+
+    padding: $padding.md;
+    margin: $padding.xxl $padding.md;
+
+    // Remove any standard borders and set the bottom border to underline the
+    // input.
+    //
+    border: none;
+    border-bottom: solid 1px $color.grey;
+
+    // A mostly transparent background, with the primary color at the bottom
+    // to mimic an underline.  Adjust the percentages to adjust the size of the
+    // highlight.
+    //
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $color.primary 4%);
+    background-repeat: no-repeat;
+
+    // Animation point of origin.
+    //
+    background-position: 50% 0;      // Expand in both directions from center
+    // background-position: 0 0;     // Expand from left -> right
+    // background-position: 100% 0;  // Expand from right -> left
+
+    // Only the background-size *needs* to be animated to achieve the
+    // underline.
+    //
+    // The border color changes to the primary color to avoid having a grey
+    // line under the... underline.  Animating this just makes the experience a
+    // bit smoother.
+    //
+    background-size: 0% 100%;
+    transition: background-size $transition-duration cubic-bezier(0.64, 0.09, 0.08, 1),
+                border-color    $transition-duration cubic-bezier(0.64, 0.09, 0.08, 1);
+
+    &:focus {
+        // The background creates a bold underline in the app's primary color.
+        //
+        background-size: 100% 100%;
+        border-color: $color.primary;
+
+        // Override some default browser styles for focused inputs.
+        //
+        box-shadow: none;
+        outline: none;
+    }
+
+    &.error {
+        // Add the class ``error`` to a ``$text-field`` to trigger the error
+        // state.
+
+        // Overwrite the border and focus underline with the error color.
+        //
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $color.error 4%);
+        border-color: $color.error;
+
+        // Apply a shake animation to call user attention to elements with
+        // errors.
+        //
+        animation: shake $transition-duration ease-in-out;
+    }
+
+    // Chrome on iOS adds some kind of border-radius to ``input`` fields.  The
+    // styles below don't fix it, but I'm leaving this here as a reminder.
+    //
+    & {
+        -webkit-appearance: none;
+        border-radius: 0;
+    }
+}
+
+
+$field {
+    position: relative;
+    width: 100%;
+}
+
+
+$field--input--text {
+    input[type="text"],
+    input[type="password"] {
+        @extends $input--text;
+
+        width: 100%;
+    }
+}
+
+
+$field--label {
+    label {
+        display: inline-block;
+    }
+}
+
+
+$field--label--fixed {
+    input[type="text"],
+    input[type="password"] {
+        &:focus + label {
+            color: $color.primary;
+            transition: color $transition-duration,
+                        font-weight $transition-duration;
+            font-weight: bold;
+        }
+    }
+
+    label {
+        position: absolute;
+        top: 0;
+        left: 1rem;
+        color: $color.font.primary.text;
+        font-size: 0.75rem;
+    }
+}
+
+
+$field--label--float {
+    input[type="text"],
+    input[type="password"] {
+        +placeholder() {
+            visibility: hidden;
+        }
+
+        &:focus {
+            +placeholder() {
+                visibility: visible;
+            }
+        }
+        &:focus + label {
+            color: $color.primary;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transform: translateY(-20px);
+            transition: unquote("color") $transition-duration,
+                        font-size        $transition-duration,
+                        font-weight      $transition-duration,
+                        transform        $transition-duration;
+        }
+    }
+
+    label {
+        position: absolute;
+        bottom: 2rem;
+        left: 1rem;
+    }
+}
+
+
+$field--fixed {
+    @extends $field;
+    @extends $field--label;
+    @extends $field--label--fixed;
+    @extends $field--input--text;
+}
+
+
+$field--float {
+    @extends $field;
+    @extends $field--label;
+    @extends $field--label--float;
+    @extends $field--input--text;
+}
+
+
+
 $text-field {
     display: inline-block;
 
@@ -76,7 +242,7 @@ $text-field {
             // Prevent default styles from hiding the placeholder text when the
             // input element has focus (usually the default behavior).
             //
-            visibility: visible !important;
+            /* visibility: visible !important; */
         }
     }
 
